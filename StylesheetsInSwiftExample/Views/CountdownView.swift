@@ -19,7 +19,7 @@ class CountdownView: UIView {
     let progressLayer: CAShapeLayer
     
     var maxValue: CGFloat = 60
-    var currentValue: CGFloat = 0 { didSet { animateProgress() } }
+    var currentValue: CGFloat = 0 { willSet { animateProgress(from: currentValue, to: newValue) } }
     var progress: CGFloat { get { return currentValue / maxValue } }
     
     var createCountdownLabel: (text: String) -> UILabel = { text in
@@ -33,9 +33,9 @@ class CountdownView: UIView {
     }
     
     init() {
-        topLabel = createCountdownLabel(text: "0 days")
-        midLabel = createCountdownLabel(text: "0 hours")
-        bottomLabel = createCountdownLabel(text: "0 minutes")
+        topLabel = createCountdownLabel(text: "0d")
+        midLabel = createCountdownLabel(text: "0h")
+        bottomLabel = createCountdownLabel(text: "0m")
         
         stackView = UIStackView(arrangedSubviews: [topLabel, midLabel, bottomLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,6 +55,14 @@ class CountdownView: UIView {
         layer.addSublayer(progressLayer)
         
         addConstraints()
+    }
+    
+    func update(withCountdown countdown: Countdown) {
+        let remainingTime = countdown.remainingTime()
+        topLabel.text = "\(remainingTime.days)d"
+        midLabel.text = "\(remainingTime.hours)h"
+        bottomLabel.text = "\(remainingTime.minutes)m"
+        currentValue = CGFloat(remainingTime.seconds)
     }
     
     override func layoutSubviews() {
@@ -80,14 +88,13 @@ class CountdownView: UIView {
         progressLayer.path = path.CGPath
     }
     
-    func animateProgress() {
-        let fromValue = progressLayer.strokeEnd
-        let toValue = currentValue / maxValue
-        
+    func animateProgress(from from: CGFloat, to: CGFloat) {
+        let fromValue = from / maxValue
+        let toValue = to / maxValue
         let strokeAnimation = CABasicAnimation(keyPath: "strokeEnd")
         strokeAnimation.fromValue = fromValue
         strokeAnimation.toValue = toValue
-        strokeAnimation.duration = 1
+        strokeAnimation.duration = 0.1
         
         progressLayer.addAnimation(strokeAnimation, forKey: "stroke")
         progressLayer.strokeEnd = toValue

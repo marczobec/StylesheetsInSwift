@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B62FC4DC1CF9E77F006E9716 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62FC4DB1CF9E77F006E9716 /* Then.swift */; };
 		B62FC4DF1CF9E7A7006E9716 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62FC4DE1CF9E7A7006E9716 /* CountdownView.swift */; };
+		B62FC4E11CF9E820006E9716 /* CountdownListCountdownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62FC4E01CF9E820006E9716 /* CountdownListCountdownCell.swift */; };
+		B62FC4E31CFA0E2A006E9716 /* CountdownListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62FC4E21CFA0E2A006E9716 /* CountdownListFlowLayout.swift */; };
 		B6F4D8D81CF9666A006A7322 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F4D8D71CF9666A006A7322 /* AppDelegate.swift */; };
 		B6F4D8DF1CF9666A006A7322 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6F4D8DE1CF9666A006A7322 /* Assets.xcassets */; };
 		B6F4D8E21CF9666A006A7322 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6F4D8E01CF9666A006A7322 /* LaunchScreen.storyboard */; };
@@ -24,6 +26,8 @@
 /* Begin PBXFileReference section */
 		B62FC4DB1CF9E77F006E9716 /* Then.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		B62FC4DE1CF9E7A7006E9716 /* CountdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
+		B62FC4E01CF9E820006E9716 /* CountdownListCountdownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownListCountdownCell.swift; sourceTree = "<group>"; };
+		B62FC4E21CFA0E2A006E9716 /* CountdownListFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownListFlowLayout.swift; sourceTree = "<group>"; };
 		B6F4D8D41CF9666A006A7322 /* StylesheetsInSwiftExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StylesheetsInSwiftExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6F4D8D71CF9666A006A7322 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6F4D8DE1CF9666A006A7322 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -161,6 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				B6F4D8FC1CF96F7F006A7322 /* CountdownListController.swift */,
+				B62FC4E01CF9E820006E9716 /* CountdownListCountdownCell.swift */,
+				B62FC4E21CFA0E2A006E9716 /* CountdownListFlowLayout.swift */,
 			);
 			path = "Countdowns - List";
 			sourceTree = "<group>";
@@ -246,12 +252,14 @@
 				B6F4D8EE1CF966E8006A7322 /* AppCoordinator.swift in Sources */,
 				B62FC4DC1CF9E77F006E9716 /* Then.swift in Sources */,
 				B6F4D8D81CF9666A006A7322 /* AppDelegate.swift in Sources */,
+				B62FC4E31CFA0E2A006E9716 /* CountdownListFlowLayout.swift in Sources */,
 				B6F4D9021CF97336006A7322 /* CountdownDetailController.swift in Sources */,
 				B6F4D8F31CF96859006A7322 /* Stylesheet.swift in Sources */,
 				B6F4D8FF1CF9706C006A7322 /* CountdownManager.swift in Sources */,
 				B62FC4DF1CF9E7A7006E9716 /* CountdownView.swift in Sources */,
 				B6F4D8F51CF96867006A7322 /* Stylesheet+applyOn.swift in Sources */,
 				B6F4D8F71CF96C4A006A7322 /* Countdown.swift in Sources */,
+				B62FC4E11CF9E820006E9716 /* CountdownListCountdownCell.swift in Sources */,
 				B6F4D8FD1CF96F7F006A7322 /* CountdownListController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
