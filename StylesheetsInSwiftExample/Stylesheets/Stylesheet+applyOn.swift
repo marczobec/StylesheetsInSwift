@@ -13,4 +13,12 @@ typealias Fonts = Stylesheet.Fonts
 
 extension Stylesheet {
     
+    static func applyOn(listVC: CountdownListController) {
+        listVC.title = Contexts.CountdownList.Title
+    }
+    
+    static func applyOn(detailVC: CountdownDetailController) {
+        detailVC.title = detailVC.countdown.title
+    }
+    
 }

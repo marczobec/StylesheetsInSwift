@@ -11,7 +11,9 @@ import UIKit
 struct Stylesheet {
     
     enum Contexts {
-   
+        struct CountdownList {
+            static let Title = "Countdowns"
+        }
     }
     
     enum Colors {
@@ -19,7 +21,8 @@ struct Stylesheet {
     }
     
     enum Sizes {
-
+        static let ScreenWidth = UIScreen.mainScreen().bounds.width
+        static let ScreenHeight = UIScreen.mainScreen().bounds.height
     }
     
     enum Fonts {
