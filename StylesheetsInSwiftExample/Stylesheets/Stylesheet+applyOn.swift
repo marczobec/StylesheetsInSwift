@@ -77,4 +77,11 @@ extension Stylesheet {
         detailVC.datePicker.setValue(context.DatePickerTextColor, forKey: "textColor")
     }
     
+    static func applyOn(layout: CountdownListFlowLayout) {
+        let itemSpacing = CGFloat(Contexts.CountdownList.LayoutItemSpacing)
+        layout.minimumInteritemSpacing = itemSpacing
+        layout.minimumLineSpacing = itemSpacing
+        layout.sectionInset = UIEdgeInsetsMake(itemSpacing, itemSpacing, itemSpacing, itemSpacing)
+    }
+    
 }

@@ -24,6 +24,8 @@ struct Stylesheet {
         
         struct CountdownList {
             static let Title = "Countdowns"
+            
+            static let LayoutItemSpacing = 16.0
         }
         
         struct CountdownDetail {

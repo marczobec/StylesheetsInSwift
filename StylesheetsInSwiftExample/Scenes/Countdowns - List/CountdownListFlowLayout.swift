@@ -12,13 +12,7 @@ class CountdownListFlowLayout: UICollectionViewFlowLayout {
     
     override init() {
         super.init()
-        setupLayout()
-    }
-    
-    func setupLayout() {
-        minimumInteritemSpacing = 32.0
-        minimumLineSpacing = 32.0
-        sectionInset = UIEdgeInsetsMake(32.0, 32.0, 32.0, 32.0)
+        Stylesheet.applyOn(self)
     }
     
     override var itemSize: CGSize {
