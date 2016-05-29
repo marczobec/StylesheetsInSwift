@@ -13,7 +13,7 @@ struct CountdownDetailSceneTransitions {
 }
 
 protocol CountdownDetailControllerDelegate {
-    mutating func countdownDetailController(countdownDetailController: CountdownDetailController, didEditCountdownAtIndex index: Int, withTitle title: String, date: NSDate)
+    func countdownDetailController(countdownDetailController: CountdownDetailController, didEditCountdownAtIndex index: Int, withTitle title: String, date: NSDate)
     func countdownDetailController(countdownDetailController: CountdownDetailController, didAddCountdownWithTitle title: String, date: NSDate)
 }
 
@@ -36,7 +36,6 @@ class CountdownDetailController: UITableViewController, UITextFieldDelegate {
     var isInEditMode: (bool: Bool, index: Int, countdown: Countdown?)
     
     private let dateFormatter: NSDateFormatter
-    private var updateTimer: NSTimer?
     
     init(sceneTransitions: CountdownDetailSceneTransitions, isInEditMode: (bool: Bool, index: Int, countdown: Countdown?) = (false, 0, nil)) {
         self.sceneTransitions = sceneTransitions
@@ -78,17 +77,9 @@ class CountdownDetailController: UITableViewController, UITextFieldDelegate {
         
         addConstraints()
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        updateCountdownView()
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(updateCountdownView), userInfo: nil, repeats: true)
-    }
-    
+
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        updateTimer?.invalidate()
-        updateTimer = nil
         
         let title = titleTextField.text ?? ""
         let date = datePicker.date
@@ -165,10 +156,6 @@ class CountdownDetailController: UITableViewController, UITextFieldDelegate {
     
     func didSelectDate(datePicker: UIDatePicker) {
         dateLabel.text = dateFormatter.stringFromDate(datePicker.date)
-    }
-    
-    func updateCountdownView() {
-        
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

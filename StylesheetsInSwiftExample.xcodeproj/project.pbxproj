@@ -146,9 +146,9 @@
 		B6F4D8EF1CF9681A006A7322 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				B62FC4E61CFA3439006E9716 /* NavigationController.swift */,
 				B6F4D8FB1CF96F7F006A7322 /* Countdowns - List */,
 				B6F4D9001CF9731F006A7322 /* Countdowns - Detail */,
-				B62FC4E61CFA3439006E9716 /* NavigationController.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";

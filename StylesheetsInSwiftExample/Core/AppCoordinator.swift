@@ -19,7 +19,6 @@ struct AppCoordinator {
     }
     
     func start() {
-        Stylesheet.applyOn(navigationController)
         showCountdownList()
     }
     
