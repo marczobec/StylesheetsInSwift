@@ -67,7 +67,8 @@ struct Stylesheet {
     }
     
     enum Fonts {
-
+        static let Bold = "Avenir-Medium"
+        static let Regular = "Avenir-Light"
     }
     
 }

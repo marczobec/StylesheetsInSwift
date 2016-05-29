@@ -19,7 +19,7 @@ extension Stylesheet {
         typealias context = Contexts.NavigationController
         navVC.navigationBar.barTintColor = context.BarTintColor
         navVC.navigationBar.tintColor = context.BarColor
-        navVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: context.BarTextColor]
+        navVC.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: Fonts.Regular, size: 22.0)!, NSForegroundColorAttributeName: context.BarTextColor]
         navVC.navigationBar.translucent = false
     }
     
@@ -35,6 +35,8 @@ extension Stylesheet {
         cell.backgroundColor = context.BackgroundColor
         cell.contentView.backgroundColor = context.BackgroundColor
         cell.titleLabel.textColor = context.TitleTextColor
+        
+        cell.titleLabel.font = UIFont(name: Fonts.Regular, size: cell.titleLabel.font?.pointSize ?? 0)
     }
     
     static func applyOn(countdownView: CountdownView) {
@@ -46,6 +48,10 @@ extension Stylesheet {
         countdownView.topLabel.textColor = context.TextColor
         countdownView.midLabel.textColor = context.TextColor
         countdownView.bottomLabel.textColor = context.TextColor
+        
+        countdownView.topLabel.font = UIFont(name: Fonts.Bold, size: countdownView.topLabel.font?.pointSize ?? 0)
+        countdownView.midLabel.font = UIFont(name: Fonts.Bold, size: countdownView.midLabel.font?.pointSize ?? 0)
+        countdownView.bottomLabel.font = UIFont(name: Fonts.Bold, size: countdownView.bottomLabel.font?.pointSize ?? 0)
     }
     
     static func applyOn(detailVC: CountdownDetailController) {
@@ -58,10 +64,12 @@ extension Stylesheet {
         detailVC.titleCell.contentView.backgroundColor = context.CellBackgroundColor
         detailVC.titleCell.selectionStyle = .None
         detailVC.titleTextField.textColor = context.CellTextColor
+        detailVC.titleTextField.font = UIFont(name: Fonts.Bold, size: detailVC.titleTextField.font?.pointSize ?? 0)
         detailVC.dateLabelCell.backgroundColor = context.CellBackgroundColor
         detailVC.dateLabelCell.contentView.backgroundColor = context.CellBackgroundColor
         detailVC.dateLabelCell.selectionStyle = .None
         detailVC.dateLabel.textColor = context.CellTextColor
+        detailVC.dateLabel.font = UIFont(name: Fonts.Bold, size: detailVC.dateLabel.font?.pointSize ?? 0)
         detailVC.datePickerCell.backgroundColor = context.CellBackgroundColor
         detailVC.datePickerCell.contentView.backgroundColor = context.CellBackgroundColor
         detailVC.datePickerCell.selectionStyle = .None
