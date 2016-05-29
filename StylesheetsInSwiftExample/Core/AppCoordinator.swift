@@ -10,27 +10,35 @@ import UIKit
 
 struct AppCoordinator {
     
-    var navigationController: UINavigationController
-    let countdownManager: CountdownManager
+    var navigationController: NavigationController
+    var countdownManager: CountdownManager
     
     init() {
-        self.navigationController = UINavigationController()
+        self.navigationController = NavigationController()
         self.countdownManager = CountdownManager()
     }
     
     func start() {
+        Stylesheet.applyOn(navigationController)
         showCountdownList()
     }
     
     func showCountdownList() {
-        let countdownListTransitions = CountdownListSceneTransitions(showCountdown: showCountdown)
-        let countdownListVC = CountdownListController(sceneTransitions: countdownListTransitions)
-        countdownListVC.countdowns = countdownManager.allCountdowns
+        let countdownListTransitions = CountdownListSceneTransitions(showEditCountdown: showEditCountdown, showCreateCoutndown: showCreateCountdown)
+        let countdownListVC = CountdownListController(countdownManager: countdownManager, sceneTransitions: countdownListTransitions)
         navigationController.pushViewController(countdownListVC, animated: true)
     }
     
-    func showCountdown(countdown: Countdown) {
-        let countdownDetailVC = CountdownDetailController(countdown: countdown, sceneTransitions: CountdownDetailSceneTransitions(goBack: goBack))
+    func showEditCountdown(atIndex index: Int) {
+        let countdown = countdownManager.allCountdowns[index]
+        let countdownDetailVC = CountdownDetailController(sceneTransitions: CountdownDetailSceneTransitions(goBack: goBack), isInEditMode: (true, index, countdown))
+        countdownDetailVC.delegate = navigationController.viewControllers.last as? CountdownDetailControllerDelegate
+        navigationController.pushViewController(countdownDetailVC, animated: true)
+    }
+    
+    func showCreateCountdown() {
+        let countdownDetailVC = CountdownDetailController(sceneTransitions: CountdownDetailSceneTransitions(goBack: goBack))
+        countdownDetailVC.delegate = navigationController.viewControllers.last as? CountdownDetailControllerDelegate
         navigationController.pushViewController(countdownDetailVC, animated: true)
     }
     

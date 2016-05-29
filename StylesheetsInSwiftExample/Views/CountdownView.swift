@@ -44,12 +44,12 @@ class CountdownView: UIView {
         
         circleView = UIView(frame: CGRectZero)
         circleView.translatesAutoresizingMaskIntoConstraints = false
-        circleView.backgroundColor = .darkGrayColor()
         circleView.addSubview(stackView)
         
         progressLayer = CAShapeLayer()
         
         super.init(frame: CGRectZero)
+        Stylesheet.applyOn(self)
         
         addSubview(circleView)
         layer.addSublayer(progressLayer)
@@ -58,11 +58,19 @@ class CountdownView: UIView {
     }
     
     func update(withCountdown countdown: Countdown) {
+        let oldTopText = topLabel.text
+        let oldMidText = midLabel.text
+        let oldBottomText = bottomLabel.text
+        
         let remainingTime = countdown.remainingTime()
         topLabel.text = "\(remainingTime.days)d"
         midLabel.text = "\(remainingTime.hours)h"
         bottomLabel.text = "\(remainingTime.minutes)m"
         currentValue = CGFloat(remainingTime.seconds)
+        
+        didAnyTextChange: if topLabel.text != oldTopText || midLabel.text != oldMidText || bottomLabel.text != oldBottomText {
+            updateFontSizes()
+        }
     }
     
     override func layoutSubviews() {
@@ -74,10 +82,7 @@ class CountdownView: UIView {
     
     func resizeProgressLayer() {
         progressLayer.position = CGPointZero
-        progressLayer.lineWidth = 3.0
         progressLayer.strokeEnd = currentValue / maxValue
-        progressLayer.fillColor = nil
-        progressLayer.strokeColor = UIColor.blackColor().CGColor
         
         let radius = CGFloat(circleView.bounds.height/2) - (progressLayer.lineWidth / 2)
         let startAngle = CGFloat(-M_PI / 2)
@@ -115,6 +120,21 @@ class CountdownView: UIView {
         stackView.centerYAnchor.constraintEqualToAnchor(circleView.centerYAnchor).active = true
         stackView.widthAnchor.constraintEqualToAnchor(circleView.widthAnchor, multiplier: 0.675).active = true
         stackView.heightAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+    }
+    
+    func updateFontSizes(inFrameSize size: CGSize? = nil) {
+        let frameSize = size ?? topLabel.bounds.size
+        guard frameSize.width > 0.0 else { return }
+        
+        let calcTopFontSize = topLabel.font.calculateFontSizeThatFits(size: frameSize, withText: topLabel.text!)
+        let calcMidFontSize = midLabel.font.calculateFontSizeThatFits(size: frameSize, withText: midLabel.text!)
+        let calcBottomFontSize = bottomLabel.font.calculateFontSizeThatFits(size: frameSize, withText: bottomLabel.text!)
+        let fontSize = min(calcTopFontSize, calcMidFontSize, calcBottomFontSize)
+        
+        guard fontSize >= 1.0 else { return }
+        topLabel.font = topLabel.font.fontWithSize(fontSize)
+        midLabel.font = midLabel.font.fontWithSize(fontSize)
+        bottomLabel.font = bottomLabel.font.fontWithSize(fontSize)
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

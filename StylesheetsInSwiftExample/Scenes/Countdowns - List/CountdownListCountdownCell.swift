@@ -40,8 +40,7 @@ class CountdownListCountdownCell: UICollectionViewCell {
         bottomCountdownContainerView.addSubview(countdownView)
         
         super.init(frame: frame)
-        
-        contentView.backgroundColor = .lightGrayColor()
+        Stylesheet.applyOn(self)
         
         contentView.addSubview(contentContainerView)
         

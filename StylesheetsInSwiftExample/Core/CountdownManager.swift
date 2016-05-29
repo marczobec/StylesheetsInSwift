@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CountdownManager {
+class CountdownManager {
     
     var allCountdowns: [Countdown] = []
     
@@ -16,12 +16,16 @@ struct CountdownManager {
         allCountdowns = loadCountdowns()
     }
     
-    mutating func add(countdown: Countdown) {
+    func add(countdown: Countdown) {
         allCountdowns.append(countdown)
         saveCountdowns()
     }
     
-    mutating func delete(countdown: Countdown) {
+    func update(atIndex index: Int, withTitle title: String, date: NSDate) {
+        allCountdowns[index] = Countdown(title: title, date: date)
+    }
+    
+    func delete(countdown: Countdown) {
         countdownLoop: for (index, tmpCountdown) in allCountdowns.enumerate() {
             if tmpCountdown == countdown {
                 allCountdowns.removeAtIndex(index)
@@ -34,7 +38,9 @@ struct CountdownManager {
     func loadCountdowns() -> [Countdown] {
         // use static list of countdowns for this example project
         return [
-            Countdown(title: "WWDC 2016", date: NSDate())
+            Countdown(title: "WWDC 2016", date: NSDate(timeIntervalSince1970: 1465837200)),
+            Countdown(title: "Christmas", date: NSDate(timeIntervalSince1970: 1482534000)),
+            Countdown(title: "Birthday", date: NSDate(timeIntervalSince1970: 1483484400))
         ]
     }
     
