@@ -8,27 +8,28 @@
 
 import UIKit
 
-struct Stylesheet {
+enum Stylesheet {
     
     enum Contexts {
-        struct Global {
+        
+        enum Global {
             static let StatusBarStyle = UIStatusBarStyle.LightContent
             static let BackgroundColor = Colors.DarkGray
         }
         
-        struct NavigationController {
+        enum NavigationController {
             static let BarTintColor = Colors.Black
             static let BarTextColor = Colors.White
             static let BarColor = Colors.LightGray
         }
         
-        struct CountdownList {
+        enum CountdownList {
             static let Title = "Countdowns"
             
             static let LayoutItemSpacing = 16.0
         }
         
-        struct CountdownDetail {
+        enum CountdownDetail {
             static let EditModeTitle = "Edit Countdown"
             static let CreationModeTitle = "Create Countdown"
             
@@ -38,7 +39,7 @@ struct Stylesheet {
             static let DatePickerTextColor = Colors.Blue
         }
         
-        struct CountdownView {
+        enum CountdownView {
             static let BackgroundColor = Global.BackgroundColor
             static let CircleColor = Colors.Blue
             static let ProgressStrokeColor = Colors.LightBlue
@@ -47,10 +48,11 @@ struct Stylesheet {
             static let ProgressStrokeWidth = 3.0
         }
         
-        struct CountdownListCell {
+        enum CountdownListCell {
             static let BackgroundColor = Colors.Black
             static let TitleTextColor = Colors.Blue
         }
+        
     }
     
     enum Colors {
