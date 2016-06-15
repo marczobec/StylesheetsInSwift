@@ -13,7 +13,7 @@ enum Stylesheet {
     enum Contexts {
         
         enum Global {
-            static let StatusBarStyle = UIStatusBarStyle.LightContent
+            static let StatusBarStyle = UIStatusBarStyle.lightContent
             static let BackgroundColor = Colors.DarkGray
         }
         
@@ -66,8 +66,8 @@ enum Stylesheet {
     }
     
     enum Sizes {
-        static let ScreenWidth = UIScreen.mainScreen().bounds.width
-        static let ScreenHeight = UIScreen.mainScreen().bounds.height
+        static let ScreenWidth = UIScreen.main().bounds.width
+        static let ScreenHeight = UIScreen.main().bounds.height
     }
     
     enum Fonts {

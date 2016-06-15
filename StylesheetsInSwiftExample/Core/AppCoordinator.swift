@@ -42,7 +42,7 @@ struct AppCoordinator {
     }
     
     func goBack() {
-        navigationController.popViewControllerAnimated(true)
+        navigationController.popViewController(animated: true)
     }
     
 }

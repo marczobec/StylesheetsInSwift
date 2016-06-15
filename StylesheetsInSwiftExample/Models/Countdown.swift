@@ -11,11 +11,11 @@ import Foundation
 struct Countdown {
     
     let title: String
-    let date: NSDate
+    let date: Date
     
     func remainingTime() -> (days: Int, hours: Int, minutes: Int, seconds: Int) {
-        let components = NSCalendar.currentCalendar().components([NSCalendarUnit.Day,  NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Second], fromDate: NSDate(), toDate: date, options: NSCalendarOptions.WrapComponents)
-        return (days: components.day, hours: components.hour, minutes: components.minute, seconds: components.second)
+        let components = Calendar.current().components([Calendar.Unit.day,  Calendar.Unit.hour, Calendar.Unit.minute, Calendar.Unit.second], from: Date(), to: date, options: Calendar.Options.wrapComponents)
+        return (days: components.day!, hours: components.hour!, minutes: components.minute!, seconds: components.second!)
     }
     
 }

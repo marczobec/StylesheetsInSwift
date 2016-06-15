@@ -13,8 +13,8 @@ struct CountdownDetailSceneTransitions {
 }
 
 protocol CountdownDetailControllerDelegate {
-    func countdownDetailController(countdownDetailController: CountdownDetailController, didEditCountdownAtIndex index: Int, withTitle title: String, date: NSDate)
-    func countdownDetailController(countdownDetailController: CountdownDetailController, didAddCountdownWithTitle title: String, date: NSDate)
+    func countdownDetailController(_ countdownDetailController: CountdownDetailController, didEditCountdownAtIndex index: Int, withTitle title: String, date: Date)
+    func countdownDetailController(_ countdownDetailController: CountdownDetailController, didAddCountdownWithTitle title: String, date: Date)
 }
 
 class CountdownDetailController: UITableViewController, UITextFieldDelegate {
@@ -35,7 +35,7 @@ class CountdownDetailController: UITableViewController, UITextFieldDelegate {
     var delegate: CountdownDetailControllerDelegate?
     var isInEditMode: (bool: Bool, index: Int, countdown: Countdown?)
     
-    private let dateFormatter: NSDateFormatter
+    private let dateFormatter: DateFormatter
     
     init(sceneTransitions: CountdownDetailSceneTransitions, isInEditMode: (bool: Bool, index: Int, countdown: Countdown?) = (false, 0, nil)) {
         self.sceneTransitions = sceneTransitions
@@ -44,7 +44,7 @@ class CountdownDetailController: UITableViewController, UITextFieldDelegate {
         self.titleCell = UITableViewCell()
         self.titleTextField = UITextField()
         self.titleTextField.translatesAutoresizingMaskIntoConstraints = false
-        self.titleTextField.userInteractionEnabled = false
+        self.titleTextField.isUserInteractionEnabled = false
         self.titleCell.contentView.addSubview(self.titleTextField)
         
         self.dateLabelCell = UITableViewCell()
@@ -55,30 +55,30 @@ class CountdownDetailController: UITableViewController, UITextFieldDelegate {
         self.datePickerCell = UITableViewCell()
         self.datePicker = UIDatePicker()
         self.datePicker.translatesAutoresizingMaskIntoConstraints = false
-        self.datePicker.datePickerMode = .DateAndTime
-        self.datePicker.minimumDate = NSDate()
+        self.datePicker.datePickerMode = .dateAndTime
+        self.datePicker.minimumDate = Date()
         self.datePickerCell.contentView.addSubview(self.datePicker)
         
         self.isDatePickerToggled = false
         
-        self.dateFormatter = NSDateFormatter()
-        self.dateFormatter.dateStyle = .ShortStyle
-        self.dateFormatter.timeStyle = .MediumStyle
+        self.dateFormatter = DateFormatter()
+        self.dateFormatter.dateStyle = .shortStyle
+        self.dateFormatter.timeStyle = .mediumStyle
         
-        super.init(style: .Grouped)
-        edgesForExtendedLayout = UIRectEdge.None
+        super.init(style: .grouped)
+        edgesForExtendedLayout = UIRectEdge()
         Stylesheet.applyOn(self)
         
         titleTextField.delegate = self
         titleTextField.text = isInEditMode.countdown?.title ?? ""
-        datePicker.date = isInEditMode.countdown?.date ?? NSDate()
-        dateLabel.text = dateFormatter.stringFromDate(datePicker.date)
-        datePicker.addTarget(self, action: #selector(didSelectDate), forControlEvents: .ValueChanged)
+        datePicker.date = isInEditMode.countdown?.date ?? Date()
+        dateLabel.text = dateFormatter.string(from: datePicker.date)
+        datePicker.addTarget(self, action: #selector(didSelectDate), for: .valueChanged)
         
         addConstraints()
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         let title = titleTextField.text ?? ""
@@ -92,15 +92,15 @@ class CountdownDetailController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : isDatePickerToggled ? 2 : 1
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0: return "Title"
         case 1: return "Date"
@@ -108,32 +108,32 @@ class CountdownDetailController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).section == 0 {
             return titleCell
-        } else if indexPath.section == 1 {
-            if indexPath.row == 0 {
+        } else if (indexPath as NSIndexPath).section == 1 {
+            if (indexPath as NSIndexPath).row == 0 {
                 return dateLabelCell
-            } else if indexPath.row == 1 {
+            } else if (indexPath as NSIndexPath).row == 1 {
                 return datePickerCell
             }
         }
         fatalError("Unknown Cell")
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 1 && indexPath.row == 1 ? CGRectGetHeight(datePicker.frame) : tableView.rowHeight
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return (indexPath as NSIndexPath).section == 1 && (indexPath as NSIndexPath).row == 1 ? datePicker.frame.height : tableView.rowHeight
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard indexPath.row == 0 else { return }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard (indexPath as NSIndexPath).row == 0 else { return }
         
-        if indexPath.section == 0 {
-            titleTextField.userInteractionEnabled = true
+        if (indexPath as NSIndexPath).section == 0 {
+            titleTextField.isUserInteractionEnabled = true
             titleTextField.becomeFirstResponder()
             if (isDatePickerToggled) { toggleDatePicker() }
-        } else if indexPath.section == 1 {
-            titleTextField.userInteractionEnabled = false
+        } else if (indexPath as NSIndexPath).section == 1 {
+            titleTextField.isUserInteractionEnabled = false
             titleTextField.resignFirstResponder()
             toggleDatePicker()
         }
@@ -144,21 +144,21 @@ class CountdownDetailController: UITableViewController, UITextFieldDelegate {
         
         tableView.beginUpdates()
         
-        let datePickerIndexPath = NSIndexPath(forRow: 1, inSection: 1)
+        let datePickerIndexPath = IndexPath(row: 1, section: 1)
         if isDatePickerToggled {
-            tableView.insertRowsAtIndexPaths([datePickerIndexPath], withRowAnimation: .Fade)
+            tableView.insertRows(at: [datePickerIndexPath], with: .fade)
         } else {
-            tableView.deleteRowsAtIndexPaths([datePickerIndexPath], withRowAnimation: .Fade)
+            tableView.deleteRows(at: [datePickerIndexPath], with: .fade)
         }
         
         tableView.endUpdates()
     }
     
-    func didSelectDate(datePicker: UIDatePicker) {
-        dateLabel.text = dateFormatter.stringFromDate(datePicker.date)
+    func didSelectDate(_ datePicker: UIDatePicker) {
+        dateLabel.text = dateFormatter.string(from: datePicker.date)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
@@ -166,20 +166,20 @@ class CountdownDetailController: UITableViewController, UITextFieldDelegate {
     func addConstraints() {
         guard let textfieldSuperview = titleTextField.superview, datelabelSuperview = dateLabel.superview, let datepickerSuperview = datePicker.superview  else { return }
         
-        titleTextField.leadingAnchor.constraintEqualToAnchor(textfieldSuperview.leadingAnchor, constant: 16).active = true
-        titleTextField.topAnchor.constraintEqualToAnchor(textfieldSuperview.topAnchor, constant: 2).active = true
-        titleTextField.trailingAnchor.constraintEqualToAnchor(textfieldSuperview.trailingAnchor, constant: -16).active = true
-        titleTextField.bottomAnchor.constraintEqualToAnchor(textfieldSuperview.bottomAnchor, constant: -2).active = true
+        titleTextField.leadingAnchor.constraint(equalTo: textfieldSuperview.leadingAnchor, constant: 16).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: textfieldSuperview.topAnchor, constant: 2).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: textfieldSuperview.trailingAnchor, constant: -16).isActive = true
+        titleTextField.bottomAnchor.constraint(equalTo: textfieldSuperview.bottomAnchor, constant: -2).isActive = true
         
-        dateLabel.leadingAnchor.constraintEqualToAnchor(datelabelSuperview.leadingAnchor, constant: 16).active = true
-        dateLabel.topAnchor.constraintEqualToAnchor(datelabelSuperview.topAnchor, constant: 2).active = true
-        dateLabel.trailingAnchor.constraintEqualToAnchor(datelabelSuperview.trailingAnchor, constant: -16).active = true
-        dateLabel.bottomAnchor.constraintEqualToAnchor(datelabelSuperview.bottomAnchor, constant: -2).active = true
+        dateLabel.leadingAnchor.constraint(equalTo: datelabelSuperview.leadingAnchor, constant: 16).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: datelabelSuperview.topAnchor, constant: 2).isActive = true
+        dateLabel.trailingAnchor.constraint(equalTo: datelabelSuperview.trailingAnchor, constant: -16).isActive = true
+        dateLabel.bottomAnchor.constraint(equalTo: datelabelSuperview.bottomAnchor, constant: -2).isActive = true
         
-        datePicker.leadingAnchor.constraintEqualToAnchor(datepickerSuperview.leadingAnchor, constant: 16).active = true
-        datePicker.topAnchor.constraintEqualToAnchor(datepickerSuperview.topAnchor, constant: 2).active = true
-        datePicker.trailingAnchor.constraintEqualToAnchor(datepickerSuperview.trailingAnchor, constant: -16).active = true
-        datePicker.bottomAnchor.constraintEqualToAnchor(datepickerSuperview.bottomAnchor, constant: -2).active = true
+        datePicker.leadingAnchor.constraint(equalTo: datepickerSuperview.leadingAnchor, constant: 16).isActive = true
+        datePicker.topAnchor.constraint(equalTo: datepickerSuperview.topAnchor, constant: 2).isActive = true
+        datePicker.trailingAnchor.constraint(equalTo: datepickerSuperview.trailingAnchor, constant: -16).isActive = true
+        datePicker.bottomAnchor.constraint(equalTo: datepickerSuperview.bottomAnchor, constant: -2).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }

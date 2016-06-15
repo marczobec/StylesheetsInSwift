@@ -19,9 +19,9 @@ class CountdownListFlowLayout: UICollectionViewFlowLayout {
         set { super.itemSize = newValue }
         get {
             let numberOfColumns: CGFloat = 2
-            guard let collectionView = collectionView where collectionView.bounds.width > 0 else { return CGSizeZero }
+            guard let collectionView = collectionView where collectionView.bounds.width > 0 else { return CGSize.zero }
             let itemWidth = (collectionView.bounds.width - ((numberOfColumns + 1) * minimumInteritemSpacing)) / numberOfColumns
-            return CGSizeMake(itemWidth, itemWidth)
+            return CGSize(width: itemWidth, height: itemWidth)
         }
     }
     

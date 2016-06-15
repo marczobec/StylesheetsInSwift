@@ -17,20 +17,20 @@ class CountdownListCountdownCell: UICollectionViewCell {
     private let bottomCountdownContainerView: UIView
     
     override init(frame: CGRect) {
-        contentContainerView = UIView(frame: CGRectZero)
+        contentContainerView = UIView(frame: CGRect.zero)
         contentContainerView.translatesAutoresizingMaskIntoConstraints = false
         
-        topLabelContainerView = UIView(frame: CGRectZero)
+        topLabelContainerView = UIView(frame: CGRect.zero)
         topLabelContainerView.translatesAutoresizingMaskIntoConstraints = false
         contentContainerView.addSubview(topLabelContainerView)
         
-        bottomCountdownContainerView = UIView(frame: CGRectZero)
+        bottomCountdownContainerView = UIView(frame: CGRect.zero)
         bottomCountdownContainerView.translatesAutoresizingMaskIntoConstraints = false
         contentContainerView.addSubview(bottomCountdownContainerView)
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.minimumScaleFactor = 0.5
         topLabelContainerView.addSubview(titleLabel)
@@ -54,30 +54,30 @@ class CountdownListCountdownCell: UICollectionViewCell {
     
     func addConstraints() {
         guard let titleLabelSuperview = titleLabel.superview, countDownSuperview = countdownView.superview, let topContainerSuperview = topLabelContainerView.superview, let bottomContainerSuperview = bottomCountdownContainerView.superview else { return }
-        contentContainerView.centerXAnchor.constraintEqualToAnchor(contentView.centerXAnchor).active = true
-        contentContainerView.centerYAnchor.constraintEqualToAnchor(contentView.centerYAnchor).active = true
-        contentContainerView.widthAnchor.constraintEqualToAnchor(contentView.widthAnchor).active = true
-        contentContainerView.heightAnchor.constraintEqualToAnchor(contentView.heightAnchor).active = true
+        contentContainerView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        contentContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        contentContainerView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        contentContainerView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
         
-        topLabelContainerView.leadingAnchor.constraintEqualToAnchor(topContainerSuperview.leadingAnchor).active = true
-        topLabelContainerView.topAnchor.constraintEqualToAnchor(topContainerSuperview.topAnchor).active = true
-        topLabelContainerView.trailingAnchor.constraintEqualToAnchor(topContainerSuperview.trailingAnchor).active = true
-        topLabelContainerView.heightAnchor.constraintEqualToConstant(24).active = true
+        topLabelContainerView.leadingAnchor.constraint(equalTo: topContainerSuperview.leadingAnchor).isActive = true
+        topLabelContainerView.topAnchor.constraint(equalTo: topContainerSuperview.topAnchor).isActive = true
+        topLabelContainerView.trailingAnchor.constraint(equalTo: topContainerSuperview.trailingAnchor).isActive = true
+        topLabelContainerView.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
-        bottomCountdownContainerView.leadingAnchor.constraintEqualToAnchor(bottomContainerSuperview.leadingAnchor).active = true
-        bottomCountdownContainerView.bottomAnchor.constraintEqualToAnchor(bottomContainerSuperview.bottomAnchor).active = true
-        bottomCountdownContainerView.trailingAnchor.constraintEqualToAnchor(bottomContainerSuperview.trailingAnchor).active = true
-        bottomCountdownContainerView.topAnchor.constraintEqualToAnchor(topLabelContainerView.bottomAnchor).active = true
+        bottomCountdownContainerView.leadingAnchor.constraint(equalTo: bottomContainerSuperview.leadingAnchor).isActive = true
+        bottomCountdownContainerView.bottomAnchor.constraint(equalTo: bottomContainerSuperview.bottomAnchor).isActive = true
+        bottomCountdownContainerView.trailingAnchor.constraint(equalTo: bottomContainerSuperview.trailingAnchor).isActive = true
+        bottomCountdownContainerView.topAnchor.constraint(equalTo: topLabelContainerView.bottomAnchor).isActive = true
         
-        titleLabel.leadingAnchor.constraintEqualToAnchor(titleLabelSuperview.leadingAnchor, constant: 2.0).active = true
-        titleLabel.topAnchor.constraintEqualToAnchor(titleLabelSuperview.topAnchor, constant: 2.0).active = true
-        titleLabel.trailingAnchor.constraintEqualToAnchor(titleLabelSuperview.trailingAnchor, constant: -2.0).active = true
-        titleLabel.bottomAnchor.constraintEqualToAnchor(titleLabelSuperview.bottomAnchor, constant: -2.0).active = true
+        titleLabel.leadingAnchor.constraint(equalTo: titleLabelSuperview.leadingAnchor, constant: 2.0).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: titleLabelSuperview.topAnchor, constant: 2.0).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: titleLabelSuperview.trailingAnchor, constant: -2.0).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: titleLabelSuperview.bottomAnchor, constant: -2.0).isActive = true
         
-        countdownView.leadingAnchor.constraintEqualToAnchor(countDownSuperview.leadingAnchor, constant: 8.0).active = true
-        countdownView.topAnchor.constraintEqualToAnchor(countDownSuperview.topAnchor, constant: 8.0).active = true
-        countdownView.trailingAnchor.constraintEqualToAnchor(countDownSuperview.trailingAnchor, constant: -8.0).active = true
-        countdownView.bottomAnchor.constraintEqualToAnchor(countDownSuperview.bottomAnchor, constant: -8.0).active = true
+        countdownView.leadingAnchor.constraint(equalTo: countDownSuperview.leadingAnchor, constant: 8.0).isActive = true
+        countdownView.topAnchor.constraint(equalTo: countDownSuperview.topAnchor, constant: 8.0).isActive = true
+        countdownView.trailingAnchor.constraint(equalTo: countDownSuperview.trailingAnchor, constant: -8.0).isActive = true
+        countdownView.bottomAnchor.constraint(equalTo: countDownSuperview.bottomAnchor, constant: -8.0).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

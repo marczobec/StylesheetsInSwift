@@ -16,19 +16,19 @@ class CountdownManager {
         allCountdowns = loadCountdowns()
     }
     
-    func add(countdown: Countdown) {
+    func add(_ countdown: Countdown) {
         allCountdowns.append(countdown)
         saveCountdowns()
     }
     
-    func update(atIndex index: Int, withTitle title: String, date: NSDate) {
+    func update(atIndex index: Int, withTitle title: String, date: Date) {
         allCountdowns[index] = Countdown(title: title, date: date)
     }
     
-    func delete(countdown: Countdown) {
-        countdownLoop: for (index, tmpCountdown) in allCountdowns.enumerate() {
+    func delete(_ countdown: Countdown) {
+        countdownLoop: for (index, tmpCountdown) in allCountdowns.enumerated() {
             if tmpCountdown == countdown {
-                allCountdowns.removeAtIndex(index)
+                allCountdowns.remove(at: index)
                 break countdownLoop
             }
         }
@@ -38,9 +38,9 @@ class CountdownManager {
     func loadCountdowns() -> [Countdown] {
         // use static list of countdowns for this example project
         return [
-            Countdown(title: "WWDC 2016", date: NSDate(timeIntervalSince1970: 1465837200)),
-            Countdown(title: "Christmas", date: NSDate(timeIntervalSince1970: 1482534000)),
-            Countdown(title: "Birthday", date: NSDate(timeIntervalSince1970: 1483484400))
+            Countdown(title: "WWDC 2016", date: Date(timeIntervalSince1970: 1465837200)),
+            Countdown(title: "Christmas", date: Date(timeIntervalSince1970: 1482534000)),
+            Countdown(title: "Birthday", date: Date(timeIntervalSince1970: 1483484400))
         ]
     }
     

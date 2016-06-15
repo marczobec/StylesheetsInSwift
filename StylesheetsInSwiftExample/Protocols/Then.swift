@@ -24,12 +24,21 @@ import Foundation
 
 public protocol Then {}
 
-extension Then {
+extension Then where Self: Any {
     
-    public func then(@noescape block: inout Self -> Void) -> Self {
+    public func then(block: @noescape (inout Self) -> Void) -> Self {
         var copy = self
         block(&copy)
         return copy
+    }
+    
+}
+
+extension Then where Self: AnyObject {
+    
+    public func then(block: @noescape (Self) -> Void) -> Self {
+        block(self)
+        return self
     }
     
 }

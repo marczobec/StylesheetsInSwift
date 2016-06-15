@@ -10,7 +10,7 @@ import UIKit
 
 extension UIFont {
 
-    func calculateFontSizeThatFits(size size: CGSize, withText text: String) -> CGFloat {
+    func calculateFontSizeThatFits(size: CGSize, withText text: String) -> CGFloat {
         let testString: NSString = NSString(string: text)
         var minSize: CGFloat = 0.0
         var maxSize: CGFloat = 256.0
@@ -19,8 +19,8 @@ extension UIFont {
         
         while (minSize <= maxSize) {
             targetSize = minSize + (maxSize - minSize) / 2.0
-            let font = self.fontWithSize(targetSize)
-            difference = size.height - testString.sizeWithAttributes([NSFontAttributeName : font]).height
+            let font = self.withSize(targetSize)
+            difference = size.height - testString.size(attributes: [NSFontAttributeName : font]).height
             
             if targetSize == minSize || targetSize == maxSize {
                 if difference < 0 {

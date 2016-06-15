@@ -26,7 +26,7 @@ class CountdownView: UIView {
         return UILabel().then {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.text = text
-            $0.textAlignment = .Center
+            $0.textAlignment = .center
             $0.adjustsFontSizeToFitWidth = true
             $0.minimumScaleFactor = 0.1
         }
@@ -39,16 +39,16 @@ class CountdownView: UIView {
         
         stackView = UIStackView(arrangedSubviews: [topLabel, midLabel, bottomLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .Vertical
-        stackView.distribution = .FillEqually
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
         
-        circleView = UIView(frame: CGRectZero)
+        circleView = UIView(frame: CGRect.zero)
         circleView.translatesAutoresizingMaskIntoConstraints = false
         circleView.addSubview(stackView)
         
         progressLayer = CAShapeLayer()
         
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         Stylesheet.applyOn(self)
         
         addSubview(circleView)
@@ -81,19 +81,19 @@ class CountdownView: UIView {
     }
     
     func resizeProgressLayer() {
-        progressLayer.position = CGPointZero
+        progressLayer.position = CGPoint.zero
         progressLayer.strokeEnd = currentValue / maxValue
         
         let radius = CGFloat(circleView.bounds.height/2) - (progressLayer.lineWidth / 2)
         let startAngle = CGFloat(-M_PI / 2)
         let endAngle = CGFloat(3 * M_PI / 2)
-        let modelCenter = CGPointMake(bounds.width / 2, bounds.height / 2)
+        let modelCenter = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
         let path = UIBezierPath(arcCenter: modelCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         
-        progressLayer.path = path.CGPath
+        progressLayer.path = path.cgPath
     }
     
-    func animateProgress(from from: CGFloat, to: CGFloat) {
+    func animateProgress(from: CGFloat, to: CGFloat) {
         let fromValue = from / maxValue
         let toValue = to / maxValue
         let strokeAnimation = CABasicAnimation(keyPath: "strokeEnd")
@@ -101,25 +101,25 @@ class CountdownView: UIView {
         strokeAnimation.toValue = toValue
         strokeAnimation.duration = 0.1
         
-        progressLayer.addAnimation(strokeAnimation, forKey: "stroke")
+        progressLayer.add(strokeAnimation, forKey: "stroke")
         progressLayer.strokeEnd = toValue
     }
     
     func addConstraints() {
-        circleView.centerXAnchor.constraintEqualToAnchor(centerXAnchor).active = true
-        circleView.centerYAnchor.constraintEqualToAnchor(centerYAnchor).active = true
-        circleView.widthAnchor.constraintEqualToAnchor(circleView.heightAnchor).active = true
-        circleView.topAnchor.constraintGreaterThanOrEqualToAnchor(topAnchor, constant: 0).active = true
-        circleView.leadingAnchor.constraintEqualToAnchor(leadingAnchor).then { $0.priority = 700 }.active = true
+        circleView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        circleView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        circleView.widthAnchor.constraint(equalTo: circleView.heightAnchor).isActive = true
+        circleView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 0).isActive = true
+        circleView.leadingAnchor.constraint(equalTo: leadingAnchor).then { $0.priority = 700 }.isActive = true
         
-        topLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
-        midLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
-        bottomLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
+        topLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, for: .horizontal)
+        midLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, for: .horizontal)
+        bottomLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, for: .horizontal)
         
-        stackView.centerXAnchor.constraintEqualToAnchor(circleView.centerXAnchor).active = true
-        stackView.centerYAnchor.constraintEqualToAnchor(circleView.centerYAnchor).active = true
-        stackView.widthAnchor.constraintEqualToAnchor(circleView.widthAnchor, multiplier: 0.675).active = true
-        stackView.heightAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+        stackView.centerXAnchor.constraint(equalTo: circleView.centerXAnchor).isActive = true
+        stackView.centerYAnchor.constraint(equalTo: circleView.centerYAnchor).isActive = true
+        stackView.widthAnchor.constraint(equalTo: circleView.widthAnchor, multiplier: 0.675).isActive = true
+        stackView.heightAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
     }
     
     func updateFontSizes(inFrameSize size: CGSize? = nil) {
@@ -132,9 +132,9 @@ class CountdownView: UIView {
         let fontSize = min(calcTopFontSize, calcMidFontSize, calcBottomFontSize)
         
         guard fontSize >= 1.0 else { return }
-        topLabel.font = topLabel.font.fontWithSize(fontSize)
-        midLabel.font = midLabel.font.fontWithSize(fontSize)
-        bottomLabel.font = bottomLabel.font.fontWithSize(fontSize)
+        topLabel.font = topLabel.font.withSize(fontSize)
+        midLabel.font = midLabel.font.withSize(fontSize)
+        bottomLabel.font = bottomLabel.font.withSize(fontSize)
     }
     
     required init?(coder aDecoder: NSCoder) { return nil }
